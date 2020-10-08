@@ -1,3 +1,3 @@
 # BrookCodes
 
-This repository is for the Brook Codes Hackathon 2020.
+This repository is for the 2020 Brook Codes Hackathon.
