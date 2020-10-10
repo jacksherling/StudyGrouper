@@ -9,13 +9,29 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+
+const genuuid = (len) => {
+	let id = "";
+	let options =
+		"QWERTYUIOPLKJHGFDSAZXCVBNMMqwertyuiopasdfghjklzxcvbnm123456789";
+	for (let i = 0; i < len; i++) {
+		id += options[Math.floor(Math.random() * options.length)];
+	}
+	return id;
+};
+
 app.use(
 	session({
+		genid: function (req) {
+			return genuuid(20); // use UUIDs for session IDs
+		},
 		secret: "Thisismylittlesecret.",
 		resave: false,
 		saveUninitialized: false,
 	})
 );
+
+app.set("trust proxy", 1);
 
 mongoose.connect(
 	"mongodb+srv://Yixuan:abAB12!@@cluster0.boczf.mongodb.net/test?retryWrites=true&w=majority",
@@ -31,7 +47,22 @@ const User = require("./models/User");
 const PORT = process.env.port || 3000;
 
 app.get("/", (req, res) => {
-	res.render("index");
+	const user = req.session.user;
+
+	if (!user) {
+		res.redirect("/login");
+	} else {
+		const classes = user.classes;
+		let matches = {};
+		User.find(
+			{ "classes.math": classes.math, email: { $not: { $eq: user.email } } },
+			(err, foundUsers) => {
+				// console.log(foundUsers);
+			}
+		).limit(5);
+
+		res.render("index");
+	}
 });
 
 app.get("/register", (req, res) => {
@@ -40,26 +71,31 @@ app.get("/register", (req, res) => {
 
 app.post("/register", (req, res) => {
 	const data = req.body;
-	const newUser = new User({
-		email: data.email,
-		name: data.name,
-		password: bcrypt.hashSync(
-			data.password,
-			bcrypt.genSaltSync(saltRounds),
-			null
-		),
-		school: data.school,
-		phone: data.pn,
-		classes: {
-			math: data.math,
-			english: data.english,
-			science: data.science,
-			socialStudies: data.socialStudies,
-		},
+	User.find({ email: data.email }, (err, user) => {
+		if (user.length) {
+			res.redirect("/register");
+		} else {
+			const newUser = new User({
+				email: data.email,
+				name: data.name,
+				password: bcrypt.hashSync(
+					data.password,
+					bcrypt.genSaltSync(saltRounds),
+					null
+				),
+				school: data.school,
+				phone: data.pn,
+				classes: {
+					math: data.math,
+					english: data.english,
+					science: data.science,
+					socialStudies: data.socialStudies,
+				},
+			});
+			newUser.save();
+			res.redirect("/login");
+		}
 	});
-
-	newUser.save();
-	res.redirect("/login");
 });
 
 app.get("/login", (req, res) => {
@@ -71,8 +107,9 @@ app.post("/login", function (req, res) {
 		if (err) {
 			console.log(err);
 		} else {
+			if (!foundUser) return res.redirect("/login");
 			if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-				req.user = foundUser;
+				req.session.user = foundUser;
 				res.redirect("/");
 			} else {
 				res.redirect("/login");
