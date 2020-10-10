@@ -17,12 +17,14 @@
     #left {
         padding: 10px;
         height: 100%;
-        background: #e8e8e8;
+        background: var(--b4);
         color: rgb(42, 42, 42);
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
     .subject-container {
         overflow-y: scroll;
-        height: 18%;
+        height: 17%;
         overflow-x: hidden;
         margin-top: 10px;
         margin-bottom: 10px;
@@ -33,7 +35,7 @@
     }
     .user-display:hover {
         transform: translateX(5%);
-        background: #919191;
+        background: var(--blue);
         color: black;
     }
     #r-container {
@@ -66,7 +68,7 @@
     }
     
     #right {
-        background: linear-gradient(45deg, gray 50%, white 50%);
+        background: linear-gradient(45deg, var(--b2) 50%, var(--b4) 50%);
     }
 
     ::-webkit-scrollbar {
@@ -80,12 +82,12 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        background: rgb(46, 46, 46);
+        background: var(--b1);
         border-radius: 5px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: rgb(29, 29, 29);
+        background: var(--b2);
     }
 </style>
 
@@ -139,7 +141,7 @@
     </div>
     <div id="right">
         <div id="r-container">
-            Choose a peer's name to get their information!
+            Choose a peer's name to contact them if you need help!
         </div>
     </div>
 </div>

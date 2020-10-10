@@ -3,6 +3,7 @@
 <style>
     h1 {
         font-size: 50px;
+        color: var(--b1)
     }
 
     form {
@@ -11,8 +12,11 @@
         width: min(500px, 100vw);
         margin: 0 auto;
         text-align: center;
-        border: 1px solid black;
+        border: 2px solid var(--b1);
         border-radius: 20px;
+        background: var(--b3);
+        top: calc(50% - 65px);
+        transform: translateY(-50%);
     }
 
     .form-input {
@@ -20,11 +24,16 @@
         margin-bottom: 1rem;
         width: 100%;
         margin-top: 5px;
-        height: 25px;
-        border-radius: 10px;
+        height: 35px;
+        border-radius: 15px;
         padding-left: 7px;
         outline: none;
-        border: 2px solid black;
+        border: 2px solid var(--b1);
+        transition-duration: 100ms;
+    }
+
+    .form-input:focus {
+        border: 2px solid var(--blue);
     }
 
     .form-label {
@@ -35,13 +44,15 @@
     }
 
     form button {
-        margin-bottom: 20px;
-        background-color: #55585c;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        background-color: var(--b1);
         color: white;
         padding: 15px 20px;
         border-radius: 1rem;
         border: none;
-        font-size: 1rem;
+        font-size: 1.5rem;
+        width: 200px;
     }
 
     form button:hover {

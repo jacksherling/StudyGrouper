@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const config = require("config");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,14 +34,13 @@ app.use(
 
 app.set("trust proxy", 1);
 
-mongoose.connect(
-	"mongodb+srv://Yixuan:abAB12!@@cluster0.boczf.mongodb.net/test?retryWrites=true&w=majority",
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useCreateIndex: true,
-	}
-);
+const mongodbLink = config.get("mongodb");
+
+mongoose.connect(mongodbLink, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useCreateIndex: true,
+});
 
 const User = require("./models/User");
 
@@ -59,22 +59,27 @@ app.get("/", (req, res) => {
 		User.find(
 			{ "classes.math": classes.math, email: { $not: { $eq: user.email } } },
 			async (err, foundUsers) => {
-				matches.math = foundUsers;
+				matches.math = foundUsers
+					.sort((a, b) => Math.random() - 0.5)
+					.filter((v, i) => i < 5);
 				await User.find(
 					{
 						"classes.english": classes.english,
 						email: { $not: { $eq: user.email } },
 					},
 					async (err, foundUsers) => {
-						matches.english = foundUsers;
-
+						matches.english = foundUsers
+							.sort((a, b) => Math.random() - 0.5)
+							.filter((v, i) => i < 5);
 						await User.find(
 							{
 								"classes.science": classes.science,
 								email: { $not: { $eq: user.email } },
 							},
 							async (err, foundUsers) => {
-								matches.sience = foundUsers;
+								matches.science = foundUsers
+									.sort((a, b) => Math.random() - 0.5)
+									.filter((v, i) => i < 5);
 
 								await User.find(
 									{
@@ -82,7 +87,9 @@ app.get("/", (req, res) => {
 										email: { $not: { $eq: user.email } },
 									},
 									(err, foundUsers) => {
-										matches.socialStudies = foundUsers;
+										matches.socialStudies = foundUsers
+											.sort((a, b) => Math.random() - 0.5)
+											.filter((v, i) => i < 5);
 										res.render("index", {
 											matches: matches,
 											loggedInUser: user,
