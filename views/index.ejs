@@ -1,5 +1,58 @@
 <%- include("partials/header") %>
 
+<style>
+
+</style>
+
 <h1>Hello</h1>
+<div id="display">
+    <div id="left"></div>
+    <div id="right"></div>
+</div>
+
+<script>
+
+    const left = document.getElementById("left");
+    const right = document.getElementById("right");
+
+    // will do with ejs later
+    const people = [
+        {
+            name: "John",
+            pn: "123456789",
+            email: "john@john.com",
+            school: "Whitman",
+            class: "AP US History"
+        },
+        {
+            name: "John",
+            pn: "987654321",
+            email: "hi@hi.com",
+            school: "BCC",
+            class: "AP US History"
+        }
+    ];
+
+    // insert people into DOM
+    for (let p of people) {
+        let div = document.createElement("div");
+        div.setAttribute("email", p.email);
+        div.textContent = p.name;
+        div.className = "person";
+        div.onclick = e => {
+            const email = e.target.getAttribute("email");
+            const person = people.filter(person => person.email == email)[0];
+            right.innerHTML = 
+            `
+                Name: ${person.name}<br>
+                Email: ${person.email}<br>
+                Phone Number: ${person.pn}<br>
+                School: ${person.school}<br>
+                Class: ${person.school}
+            `;
+        }
+        left.appendChild(div);
+    }
+</script>
 
 <%- include("partials/footer") %>
