@@ -2,6 +2,12 @@
 
 This repository is for the 2020 Brook Codes Hackathon.
 
+Hackathon Theme: Design an app/website that tackles a problem faced by students everyday
+
+Our Webapp: Study Grouper - It helps students find study groups with people who take the same courses as them. 
+
+Built using: HTML, CSS, JavaScript, Node.js, Express.js, EJS, Bcrypt, MongoDB, and Mongoose.
+
 Criteria according to https://brook-codes.devpost.com/
 
 Relevancy
