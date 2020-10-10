@@ -1,58 +1,168 @@
 <%- include("partials/header") %>
 
-<style>
+<style>    
+    #display {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        width: 100%;
+        height: calc(100% - 65px);
+    }
+    .subject {
+        font-size: 30px;
+        color: black;
+    }
+    .name {
+        font-size: 20px;
+    }
+    #left {
+        padding: 10px;
+        height: 100%;
+        background: #e8e8e8;
+        color: rgb(42, 42, 42);
+    }
+    .subject-container {
+        overflow-y: scroll;
+        height: 18%;
+        overflow-x: hidden;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .user-display {
+        cursor: pointer;
+        transition-duration: 100ms;
+    }
+    .user-display:hover {
+        transform: translateX(5%);
+        background: #919191;
+        color: black;
+    }
+    #r-container {
+        /* visibility: hidden; */
+        width: fit-content;
+        height: fit-content;
+        position: relative;
+        padding: 50px;
+        /* left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%); */
+        margin: auto;
+        border: 2px solid black;
+        border-radius: 15px;
+        font-size: 25px;
+        margin: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        background: white;
+    }
 
+    .info {
+        font-size: 30px;
+    }
+
+    #r-container a {
+        color: rgb(107, 107, 255);
+        text-decoration: underline;
+    }
+    
+    #right {
+        background: linear-gradient(45deg, gray 50%, white 50%);
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border: 0;
+        outline: 0;
+        width: 0;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgb(46, 46, 46);
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgb(29, 29, 29);
+    }
 </style>
 
-<h1>Hello</h1>
 <div id="display">
-    <div id="left"></div>
-    <div id="right"></div>
+    <div id="left">
+        
+        <% if (matches.math) {%>
+            <font class="subject"><%= loggedInUser.classes.math %></font>
+            <div class="subject-container">
+                <% matches.math.forEach( (user) => { %>
+                    <div class="user-display" email="<%= user.email %>" subject="<%= user.classes.math %>" pn="<%= user.phone %>" name="<%= user.name %>" school="<%= user.school %>">
+                        <font class="name"><%= user.name %></font>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+        
+        <% if (matches.english) {%>
+            <font class="subject"><%= loggedInUser.classes.english %></font>
+            <div class="subject-container">
+                <% matches.english.forEach( (user) => { %>
+                    <div class="user-display" email="<%= user.email %>" subject="<%= user.classes.english %>" pn="<%= user.phone %>" name="<%= user.name %>" school="<%= user.school %>">
+                        <font class="name"><%= user.name %></font>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+        
+
+        <% if (matches.science) {%>
+            <font class="subject"><%= loggedInUser.classes.science %></font>
+            <div class="subject-container">
+                <% matches.science.forEach( (user) => { %>
+                    <div class="user-display" email="<%= user.email %>" subject="<%= user.classes.science %>" pn="<%= user.phone %>" name="<%= user.name %>" school="<%= user.school %>">
+                        <font class="name"><%= user.name %></font>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+
+        <% if (matches.socialStudies) {%>
+            <font class="subject"><%= loggedInUser.classes.socialStudies %></font>
+            <div class="subject-container">
+                <% matches.socialStudies.forEach( (user) => { %>
+                    <div class="user-display" email="<%= user.email %>" subject="<%= user.classes.socialStudies %>" pn="<%= user.phone %>" name="<%= user.name %>" school="<%= user.school %>">
+                        <font class="name"><%= user.name %></font>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+    <div id="right">
+        <div id="r-container">
+            Choose a peer's name to get their information!
+        </div>
+    </div>
 </div>
 
 <script>
 
     const left = document.getElementById("left");
-    const right = document.getElementById("right");
-
-    // will do with ejs later
-    const people = [
-        {
-            name: "John",
-            pn: "123456789",
-            email: "john@john.com",
-            school: "Whitman",
-            class: "AP US History"
-        },
-        {
-            name: "John",
-            pn: "987654321",
-            email: "hi@hi.com",
-            school: "BCC",
-            class: "AP US History"
-        }
-    ];
+    const rcontainer = document.getElementById("r-container");
 
     // insert people into DOM
-    for (let p of people) {
-        let div = document.createElement("div");
-        div.setAttribute("email", p.email);
-        div.textContent = p.name;
-        div.className = "person";
-        div.onclick = e => {
-            const email = e.target.getAttribute("email");
-            const person = people.filter(person => person.email == email)[0];
-            right.innerHTML = 
+    for (let person of document.getElementsByClassName("user-display")) {
+        person.onclick = e => {
+            let t = e.target;
+            rcontainer.style.visibility = "visible";
+            rcontainer.innerHTML = 
             `
-                Name: ${person.name}<br>
-                Email: ${person.email}<br>
-                Phone Number: ${person.pn}<br>
-                School: ${person.school}<br>
-                Class: ${person.school}
+                Name: <font class="info">${person.getAttribute("name")}</font><br>
+                Email: <font class="info"><a href="mailto:${person.getAttribute("email")}">${person.getAttribute("email")}</a></font><br>
+                Phone Number: <font class="info">${person.getAttribute("pn")}</font><br>
+                School: <font class="info">${person.getAttribute("school")}</font><br>
+                Class: <font class="info">${person.getAttribute("subject")}</font>
             `;
         }
-        left.appendChild(div);
     }
 </script>
-
 <%- include("partials/footer") %>

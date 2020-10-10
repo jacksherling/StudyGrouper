@@ -1,97 +1,168 @@
 <%- include("partials/header") %>
 
-<h1>Register</h1>
+<style>
+    h1 {
+        font-size: 50px;
+    }
+
+    form {
+        position: relative;
+        top: 20px;
+        width: min(500px, 100vw);
+        margin: 0 auto;
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 20px;
+    }
+
+    .form-input {
+        position: relative;
+        margin-bottom: 1rem;
+        width: 100%;
+        margin-top: 5px;
+        height: 25px;
+        border-radius: 10px;
+        padding-left: 7px;
+        outline: none;
+        border: 2px solid black;
+    }
+
+    .form-label {
+        margin-bottom: 1rem;
+        margin-left: 20px;
+        font-size: 1rem;
+        /* float: left; */
+    }
+
+    form button {
+        margin-bottom: 20px;
+        background-color: #55585c;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 1rem;
+        border: none;
+        font-size: 1rem;
+    }
+
+    form button:hover {
+        cursor: pointer;
+        background-color: #2a2b2e;
+        color: white;
+        transition-duration: 0.2s;
+    }
+    
+    #inputs {
+        text-align: left;
+        position: relative;
+        left: 50%;
+        width: 75%;
+        transform: translateX(-50%);
+        margin: 0;
+    }
+</style>
+
 <form method="post" action="/register">
-    <label for="name">Name</label><br/>
-    <input type="text" name="name" id="name"><br/>
-    <label for="email">Email</label><br/>
-    <input type="text" name="email" id="email"><br/>
-    <label for="password">Password</label><br/>
-    <input type="password" name="password" id="password"><br/>
-    <label for="school">School</label><br/>
-    <input type="text" name="school" id="school"><br/>
-    <label for="pn">Phone Number</label><br/>
-    <input type="text" name="pn" id="pn"><br/>
-    <label for="math">Math</label>
-    <select name="math" id="math">
-        <option value="Math 6">Math 6</option>
-        <option value="Math 7">Math 7</option>
-        <option value="Math 8">Math 8</option>
-        <option value="Algebra 1">Algebra 1</option>
-        <option value="Geometry">Geometry</option>
-        <option value="Hon. Geometry">Hon. Geometry</option>
-        <option value="Algebra 2">Algebra 2</option>
-        <option value="Hon. Algebra 2">Hon. Algebra 2</option>
-        <option value="Precaclulus">Precalculus</option>
-        <option value="Hon. Precalculus">Hon. Precalculus</option>
-        <option value="Hon. Precalculus RL">Hon. Precalculus RL</option>
-        <option value="Trigonometry">Trigonometry</option>
-        <option value="Calculus">Calculus</option>
-        <option value="AP Calculus AB">AP Calculus AB</option>
-        <option value="AP Calculus BC">AP Calculus BC</option>
-        <option value="Statistics">Statistics</option>
-        <option value="AP Statistics">AP Statistics</option>
-        <option value="Linear Algebra">Linear Algebra</option>
-        <option value="AP Linear Algebra">AP Linear Algebra</option>
-        <option value="Multivariable Calculus">Multivariable Calculus</option>
-        <option value="AP Multivariable Calculus">AP Multivariable Calculus</option>
-    </select>
-    <label for="english">English</label>
-    <select name="english" id="english">
-        <option value="English 6">English 6</option>
-        <option value="English 7">English 7</option>
-        <option value="English 8">English 8</option>
-        <option value="English 9">English 9</option>
-        <option value="Hon. English 9">Hon. English 9</option>
-        <option value="English 10">English 10</option>
-        <option value="Hon. English 10">Hon. English 10</option>
-        <option value="English 11">English 11</option>
-        <option value="Hon. English 11">Hon. English 11</option>
-        <option value="English 12">English 12</option>
-        <option value="Hon. English 12">Hon. English 12</option>
-        <option value="AP Language">AP Language</option>
-        <option value="AP Literature">AP Literature</option>
-    </select>
-    <label for="socialStudies">Social Studies</label>
-    <select name="socialStudies" id="socialStudies">
-        <option value="US History">US History</option>
-        <option value="Hon. US History">Hon. US History</option>
-        <option value="AP US History">AP US History</option>
-        <option value="NSL">NSL</option>
-        <option value="Hon. NSL">Hon. NSL</option>
-        <option value="AP NSL">AP NSL</option>
-        <option value="World History">World History</option>
-        <option value="Hon. World History">Hon. World History</option>
-        <option value="AP World History">AP World History</option>
-        <option value="Philosophy">Philosophy</option>
-        <option value="AP Philosophy">AP Philosophy</option>
-        <option value="Philosophy">Philosophy</option>
-        <option value="AP Philosophy">AP Philosophy</option>
-        <option value="AP Microeconomics">AP Microeconomics</option>
-        <option value="AP Macroeconomics">AP Macroeconomics</option>
-        <option value="AP Psychology">AP Psychology</option>
-        <option value="Law 1">Law 1</option>
-        <option value="Law 2">Law 2</option>
-    </select>
-    <label for="science">Science</label>
-    <select name="science" id="science">
-        <option value="Science 6">Science 6</option>
-        <option value="Science 7">Science 7</option>
-        <option value="Science 8">Science 8</option>
-        <option value="Biology">Biology</option>
-        <option value="Hon. Biology">Hon. Biology</option>
-        <option value="AP Biology">AP Biology</option>
-        <option value="Chemistry">Chemistry</option>
-        <option value="Hon. Chemistry">Hon. Chemistry</option>
-        <option value="AP Chemistry">AP Chemistry</option>
-        <option value="Physics">Physics</option>
-        <option value="Hon. Physics">Hon. Physics</option>
-        <option value="AP Physics 1">AP Physics 1</option>
-        <option value="AP Physics 2">AP Physics 2</option>
-        <option value="AP Physics C">AP Physics C</option>
-        <option value="AP Physics C Mechanical">AP Physics C Mechanical</option>
-        <option value="AP Physics C Elec. Mag.">AP Physics C Elec. Mag.</option>
-    </select>
+    <h1>Register</h1>
+    <div id="inputs">
+        <label class="form-label" for="name">Name: </label><br>
+        <input class="form-input" type="text" name="name" id="name" required><br/>
+
+        <label class="form-label" for="email">Email: </label><br>
+        <input class="form-input" type="email" name="email" id="email" required><br/>
+
+        <label class="form-label" for="password">Password: </label><br>
+        <input class="form-input" type="password" name="password" id="password" required><br/>
+
+        <label class="form-label" for="school">School: </label><br>
+        <input class="form-input" type="text" name="school" id="school" required><br/>
+
+        <label class="form-label" for="pn">Phone Number: </label><br>
+        <input class="form-input" type="text" name="pn" id="pn" required><br/>
+
+        <label class="form-label" for="math">Math: </label><br>
+        <select class="form-input" name="math" id="math" required>
+            <option value="Math 6">Math 6</option>
+            <option value="Math 7">Math 7</option>
+            <option value="Math 8">Math 8</option>
+            <option value="Algebra 1">Algebra 1</option>
+            <option value="Geometry">Geometry</option>
+            <option value="Hon. Geometry">Hon. Geometry</option>
+            <option value="Algebra 2">Algebra 2</option>
+            <option value="Hon. Algebra 2">Hon. Algebra 2</option>
+            <option value="Precaclulus">Precalculus</option>
+            <option value="Hon. Precalculus">Hon. Precalculus</option>
+            <option value="Hon. Precalculus RL">Hon. Precalculus RL</option>
+            <option value="Trigonometry">Trigonometry</option>
+            <option value="Calculus">Calculus</option>
+            <option value="AP Calculus AB">AP Calculus AB</option>
+            <option value="AP Calculus BC">AP Calculus BC</option>
+            <option value="Statistics">Statistics</option>
+            <option value="AP Statistics">AP Statistics</option>
+            <option value="Linear Algebra">Linear Algebra</option>
+            <option value="AP Linear Algebra">AP Linear Algebra</option>
+            <option value="Multivariable Calculus">Multivariable Calculus</option>
+            <option value="AP Multivariable Calculus">AP Multivariable Calculus</option>
+        </select><br>
+
+        <label class="form-label" for="english">English: </label><br>
+        <select class="form-input" name="english" id="english" required>
+            <option value="English 6">English 6</option>
+            <option value="English 7">English 7</option>
+            <option value="English 8">English 8</option>
+            <option value="English 9">English 9</option>
+            <option value="Hon. English 9">Hon. English 9</option>
+            <option value="English 10">English 10</option>
+            <option value="Hon. English 10">Hon. English 10</option>
+            <option value="English 11">English 11</option>
+            <option value="Hon. English 11">Hon. English 11</option>
+            <option value="English 12">English 12</option>
+            <option value="Hon. English 12">Hon. English 12</option>
+            <option value="AP Language">AP Language</option>
+            <option value="AP Literature">AP Literature</option>
+        </select><br>
+
+        <label class="form-label" for="socialStudies">Social Studies: </label><br>
+        <select class="form-input" name="socialStudies" id="socialStudies" required>
+            <option value="US History">US History</option>
+            <option value="Hon. US History">Hon. US History</option>
+            <option value="AP US History">AP US History</option>
+            <option value="NSL">NSL</option>
+            <option value="Hon. NSL">Hon. NSL</option>
+            <option value="AP NSL">AP NSL</option>
+            <option value="World History">World History</option>
+            <option value="Hon. World History">Hon. World History</option>
+            <option value="AP World History">AP World History</option>
+            <option value="Philosophy">Philosophy</option>
+            <option value="AP Philosophy">AP Philosophy</option>
+            <option value="Philosophy">Philosophy</option>
+            <option value="AP Philosophy">AP Philosophy</option>
+            <option value="AP Microeconomics">AP Microeconomics</option>
+            <option value="AP Macroeconomics">AP Macroeconomics</option>
+            <option value="AP Psychology">AP Psychology</option>
+            <option value="Law 1">Law 1</option>
+            <option value="Law 2">Law 2</option>
+        </select><br>
+
+        <label class="form-label" for="science">Science: </label><br>
+        <select class="form-input" name="science" id="science" required>
+            <option value="Science 6">Science 6</option>
+            <option value="Science 7">Science 7</option>
+            <option value="Science 8">Science 8</option>
+            <option value="Biology">Biology</option>
+            <option value="Hon. Biology">Hon. Biology</option>
+            <option value="AP Biology">AP Biology</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Hon. Chemistry">Hon. Chemistry</option>
+            <option value="AP Chemistry">AP Chemistry</option>
+            <option value="Physics">Physics</option>
+            <option value="Hon. Physics">Hon. Physics</option>
+            <option value="AP Physics 1">AP Physics 1</option>
+            <option value="AP Physics 2">AP Physics 2</option>
+            <option value="AP Physics C">AP Physics C</option>
+            <option value="AP Physics C Mechanical">AP Physics C Mechanical</option>
+            <option value="AP Physics C Elec. Mag.">AP Physics C Elec. Mag.</option>
+        </select>
+    </div>
     <button type="submit" name="btn">Register</button>
 
     <%- include("partials/footer") %>

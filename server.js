@@ -53,20 +53,53 @@ app.get("/", (req, res) => {
 		res.redirect("/login");
 	} else {
 		const classes = user.classes;
+
 		let matches = {};
+
 		User.find(
 			{ "classes.math": classes.math, email: { $not: { $eq: user.email } } },
-			(err, foundUsers) => {
-				// console.log(foundUsers);
-			}
-		).limit(5);
+			async (err, foundUsers) => {
+				matches.math = foundUsers;
+				await User.find(
+					{
+						"classes.english": classes.english,
+						email: { $not: { $eq: user.email } },
+					},
+					async (err, foundUsers) => {
+						matches.english = foundUsers;
 
-		res.render("index");
+						await User.find(
+							{
+								"classes.science": classes.science,
+								email: { $not: { $eq: user.email } },
+							},
+							async (err, foundUsers) => {
+								matches.sience = foundUsers;
+
+								await User.find(
+									{
+										"classes.socialStudies": classes.socialStudies,
+										email: { $not: { $eq: user.email } },
+									},
+									(err, foundUsers) => {
+										matches.socialStudies = foundUsers;
+										res.render("index", {
+											matches: matches,
+											loggedInUser: user,
+										});
+									}
+								);
+							}
+						);
+					}
+				);
+			}
+		);
 	}
 });
 
 app.get("/register", (req, res) => {
-	res.render("register");
+	res.render("register", { loggedInUser: req.session.user });
 });
 
 app.post("/register", (req, res) => {
@@ -99,7 +132,7 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-	res.render("login");
+	res.render("login", { loggedInUser: req.session.user });
 });
 
 app.post("/login", function (req, res) {
@@ -116,6 +149,11 @@ app.post("/login", function (req, res) {
 			}
 		}
 	});
+});
+
+app.get("/logout", (req, res) => {
+	req.session.destroy();
+	res.redirect("/");
 });
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));

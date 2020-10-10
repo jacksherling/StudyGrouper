@@ -1,11 +1,74 @@
 <%- include("partials/header") %>
 
-<h1>Login</h1>
+<style>
+    h1 {
+        font-size: 50px;
+    }
+
+    form {
+        position: relative;
+        top: 20px;
+        width: min(500px, 100vw);
+        margin: 0 auto;
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 20px;
+    }
+
+    .form-input {
+        position: relative;
+        margin-bottom: 1rem;
+        width: 100%;
+        margin-top: 5px;
+        height: 25px;
+        border-radius: 10px;
+        padding-left: 7px;
+        outline: none;
+        border: 2px solid black;
+    }
+
+    .form-label {
+        margin-bottom: 1rem;
+        margin-left: 20px;
+        font-size: 1rem;
+        /* float: left; */
+    }
+
+    form button {
+        margin-bottom: 20px;
+        background-color: #55585c;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 1rem;
+        border: none;
+        font-size: 1rem;
+    }
+
+    form button:hover {
+        cursor: pointer;
+        background-color: #2a2b2e;
+        color: white;
+        transition-duration: 0.2s;
+    }
+    
+    #inputs {
+        text-align: left;
+        position: relative;
+        left: 50%;
+        width: 75%;
+        transform: translateX(-50%);
+        margin: 0;
+    }
+</style>
+
 <form action="/login" method="POST">
-    <label for="email">Email</label><br/>
-    <input type="text" name="email" id="email"><br/>
-    <label for="password">Password</label><br/>
-    <input type="password" name="password" id="password"><br/>
+    <h1>Login</h1>
+    <div id="inputs">
+        <label class="form-label" for="email">Email: </label>
+        <input class="form-input" type="text" name="email" id="email"><br/>
+        <label class="form-label" for="password">Password: </label>
+        <input class="form-input" type="password" name="password" id="password"><br/>
+    </div>
     <button type="submit">Login</button>
 </form>
 
