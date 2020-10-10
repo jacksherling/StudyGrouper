@@ -60,6 +60,19 @@
         position: absolute;
       }
 
+      .success-msg, .failure-msg {
+        position: absolute;
+        width: 100%;
+        height: 2rem;
+        text-align: center;
+        /* background-color: var(--b2); */
+        color: green;
+      }
+
+      .failure-msg {
+        color: red;
+      }
+
       @media only screen and (max-width: 600px) {
         nav {
           font-size: 15px;
@@ -75,6 +88,12 @@
 </head>
 <body>
     <nav>
+      <% if ( failureMsg.length > 0 ) { %>
+        <p class="failure-msg">Message: <%= failureMsg %> </p>
+      <% } %>
+      <% if ( successMsg.length > 0 ) { %>
+        <p class="success-msg">Message: <%= successMsg %> </p>
+      <% } %>
         <li><a href="/">Study Group Maker</a></li>
         <ul>
             <% if (!loggedInUser) { %>

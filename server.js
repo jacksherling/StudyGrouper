@@ -5,11 +5,15 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const config = require("config");
+const flash = require("express-flash");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use(flash());
+app.use(cookieParser("keyboard cat"));
 
 const genuuid = (len) => {
 	let id = "";
@@ -26,12 +30,12 @@ app.use(
 		genid: function (req) {
 			return genuuid(20); // use UUIDs for session IDs
 		},
-		secret: "Thisismylittlesecret.",
+		secret: config.get("sessionSecret"),
+		cookie: { maxAge: 60000 },
 		resave: false,
 		saveUninitialized: false,
 	})
 );
-
 app.set("trust proxy", 1);
 
 const mongodbLink = config.get("mongodb");
@@ -93,6 +97,8 @@ app.get("/", (req, res) => {
 										res.render("index", {
 											matches: matches,
 											loggedInUser: user,
+											successMsg: req.flash("success"),
+											failureMsg: req.flash("failure"),
 										});
 									}
 								);
@@ -106,13 +112,18 @@ app.get("/", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-	res.render("register", { loggedInUser: req.session.user });
+	res.render("register", {
+		loggedInUser: req.session.user,
+		successMsg: req.flash("success"),
+		failureMsg: req.flash("failure"),
+	});
 });
 
 app.post("/register", (req, res) => {
 	const data = req.body;
 	User.find({ email: data.email }, (err, user) => {
 		if (user.length) {
+			req.flash("failure", "User already exists!");
 			res.redirect("/register");
 		} else {
 			const newUser = new User({
@@ -133,13 +144,18 @@ app.post("/register", (req, res) => {
 				},
 			});
 			newUser.save();
+			req.flash("success", "Successfully registered, please login!");
 			res.redirect("/login");
 		}
 	});
 });
 
 app.get("/login", (req, res) => {
-	res.render("login", { loggedInUser: req.session.user });
+	res.render("login", {
+		loggedInUser: req.session.user,
+		successMsg: req.flash("success"),
+		failureMsg: req.flash("failure"),
+	});
 });
 
 app.post("/login", function (req, res) {
@@ -152,6 +168,7 @@ app.post("/login", function (req, res) {
 				req.session.user = foundUser;
 				res.redirect("/");
 			} else {
+				req.flash("failure", "Incorrect email or password!");
 				res.redirect("/login");
 			}
 		}
@@ -159,8 +176,8 @@ app.post("/login", function (req, res) {
 });
 
 app.get("/logout", (req, res) => {
-	req.session.destroy();
-	res.redirect("/");
+	req.flash("success", "Successfully logged out");
+	res.redirect("/login");
 });
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
