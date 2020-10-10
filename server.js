@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const config = require("config");
 const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
+require("dotenv").config();
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,7 +30,7 @@ app.use(
 		genid: function (req) {
 			return genuuid(20); // use UUIDs for session IDs
 		},
-		secret: config.get("secret"),
+		secret: process.env.SECRET,
 		cookie: { maxAge: 60000 },
 		resave: false,
 		saveUninitialized: false,
@@ -38,7 +38,7 @@ app.use(
 );
 app.set("trust proxy", 1);
 
-const mongodbLink = config.get("mongodb");
+const mongodbLink = process.env.DB_LINK;
 
 mongoose.connect(mongodbLink, {
 	useNewUrlParser: true,
