@@ -21,3 +21,7 @@ Does the project pull something off that hasn’t been pulled off before? Does i
 
 Execution
 Is the hack usable in its current state? Is the user experience smooth? Does everything appear to work? Is it well designed? (Rated on a scale of 1 to 5.)
+
+
+
+Our app is currently published at the link http://study-grouper.herokuapp.com/
