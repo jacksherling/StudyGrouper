@@ -30,7 +30,7 @@ app.use(
 		genid: function (req) {
 			return genuuid(20); // use UUIDs for session IDs
 		},
-		secret: config.get("sessionSecret"),
+		secret: config.get("secret"),
 		cookie: { maxAge: 60000 },
 		resave: false,
 		saveUninitialized: false,
