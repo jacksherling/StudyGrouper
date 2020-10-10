@@ -48,7 +48,7 @@ mongoose.connect(mongodbLink, {
 
 const User = require("./models/User");
 
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
 	const user = req.session.user;
