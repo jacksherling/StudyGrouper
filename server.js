@@ -176,8 +176,8 @@ app.post("/login", function (req, res) {
 });
 
 app.get("/logout", (req, res) => {
-	req.flash("success", "Successfully logged out");
 	res.redirect("/login");
+	req.session.destroy();
 });
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
