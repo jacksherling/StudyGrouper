@@ -1,0 +1,64 @@
+<%- include("partials/header") %>
+
+<h1>Register</h1>
+<form method="post" action="/register">
+    <label for="name">Name</label><br/>
+    <input type="text" name="name" id="name"><br/>
+    <label for="email">Email</label><br/>
+    <input type="text" name="email" id="email"><br/>
+    <label for="password">Password</label><br/>
+    <input type="password" name="password" id="password"><br/>
+    <label for="school">School</label><br/>
+    <input type="text" name="school" id="school"><br/>
+    <label for="pn">Phone Number</label><br/>
+    <input type="text" name="pn" id="pn"><br/>
+    <label for="math">Math</label>
+    <select name="math" id="math">
+        <option value="Math 6">Math 6</option>
+        <option value="Math 7">Math 7</option>
+        <option value="Math 8">Math 8</option>
+        <option value="Algebra 1">Algebra 1</option>
+        <option value="Geometry">Geometry</option>
+        <option value="Hon. Geometry">Hon. Geometry</option>
+        <option value="Algebra 2">Algebra 2</option>
+        <option value="Hon. Algebra 2">Hon. Algebra 2</option>
+        <option value="Precaclulus">Precalculus</option>
+        <option value="Hon. Precalculus">Hon. Precalculus</option>
+        <option value="Hon. Precalculus RL">Hon. Precalculus RL</option>
+        <option value="Trigonometry">Trigonometry</option>
+        <option value="Calculus">Calculus</option>
+        <option value="AP Calculus AB">AP Calculus AB</option>
+        <option value="AP Calculus BC">AP Calculus BC</option>
+        <option value="Statistics">Statistics</option>
+        <option value="AP Statistics">AP Statistics</option>
+        <option value="Linear Algebra">Linear Algebra</option>
+        <option value="AP Linear Algebra">AP Linear Algebra</option>
+        <option value="Multivariable Calculus">Multivariable Calculus</option>
+        <option value="AP Multivariable Calculus">AP Multivariable Calculus</option>
+    </select>
+    <label for="english">English</label>
+    <select name="english" id="english">
+        <option value="English 9">English 9</option>
+        <option value="Hon. English 9">Hon. English 9</option>
+        <option value="English 10">English 10</option>
+        <option value="Hon. English 10">Hon. English 10</option>
+        <option value="English 11">English 11</option>
+        <option value="Hon. English 11">Hon. English 11</option>
+        <option value="English 12">English 12</option>
+        <option value="Hon. English 12">Hon. English 12</option>
+        <option value="AP Language">AP Language</option>
+        <option value="AP Literature">AP Literature</option>
+    </select>
+    <label for="socialStudies">Social Studies</label>
+    <select name="socialStudies" id="socialStudies">
+        <option value="US History">Hon. US History</option>
+        <option value="Hon. US History">Hon. US History</option>
+        <option value="AP US History">AP US History</option>
+        <option value="US History">NSL</option>
+        <option value="Hon. US History">Hon. NSL</option>
+        <option value="AP US History">AP NSL</option>
+        <option value="US History">NSL</option>
+    </select>
+    <button type="submit" name="btn">Register</button>
+
+    <%- include("partials/footer") %>
